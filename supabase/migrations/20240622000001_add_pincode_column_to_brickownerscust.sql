@@ -1,0 +1,1 @@
+ALTER TABLE brickownerscust ADD COLUMN IF NOT EXISTS pincode TEXT;

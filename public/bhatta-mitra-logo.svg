@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <!-- This is a placeholder SVG that will be replaced with the actual logo -->
+  <rect width="800" height="800" fill="#a52a2a" />
+  <circle cx="400" cy="400" r="300" fill="white" />
+  <text x="400" y="400" font-family="Arial" font-size="60" text-anchor="middle" fill="#a52a2a">BM</text>
+</svg>

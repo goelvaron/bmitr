@@ -1,0 +1,642 @@
+{
+  "header": {
+    "aboutUs": "About Us",
+    "services": "Services",
+    "joinWaitlist": "Join Waitlist",
+    "getStarted": "Get Started",
+    "blog": "Blogs & Resources",
+    "home": "Home",
+    "eentMarket": "e-ENT BAZAAR",
+    "loginDashboard": "Login Dashboard",
+    "dashboard": {
+      "brickKilnOwners": "Brick Kiln Owners",
+      "coalProviders": "Coal/Fuel Providers",
+      "transportProviders": "Transport Providers",
+      "serviceProviders": "Service/Product Providers",
+      "labour": "Labour"
+    },
+    "reachUs": "Reach Us"
+  },
+  "hero": {
+    "title": "Bhatta Mitra™ - Digital Platform for Brick Kiln Industry",
+    "subtitle": "Bhatta Mitra™ is India's first Elite Network of Brick Manufacturers connecting them with verified & vetted out Coal suppliers, Transport providers and Labour contractors. Join the Revolution!! Free services are available for manufacturers across India, and exclusive services are offered to a select few manufacturers in each district. HANDPICKED. VERIFIED. INNOVATIVE. Join the waiting list now for our EXCLUSIVE SERVICES!",
+    "chooseLanguage": "Choose Your Language",
+    "selectLanguage": "अपनी भाषा चुनें",
+    "chooseRole": "Choose Your Role",
+    "categoryQuestion": "Which category do you belong to?",
+    "manufacturersAndOthers": "Manufacturers & Others",
+    "goToEentBazaar": "Go to e-ENT BAZAAR",
+    "goToBhattaMitra": "Go to Bhatta Mitra Landing Page",
+    "changeLanguage": "Change Language"
+  },
+  "countdown": {
+    "title": "Platform Unlocked",
+    "description": "We are excited to announce that Bhatta Mitra™ will be launching on April 30, 2025. Join our waitlist to be among the first to access our platform.",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds",
+    "launchMessage": "LAUNCHED ON 30TH APRIL 2025, BRICK KILN OWNERS (BKOs) CAN FILL UP THE ONBOARDING FORM TO JOIN OUR MEMBERSHIP WAITINGLIST",
+    "platformUnlocked": "UNLOCKED OUR DIGITAL PLATFORM SERVICES FOR ALL STAKEHOLDERS. PLEASE CONTACT US TO JOIN OUR UNIQUE PLATFORM."
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Revolutionizing the brick kiln industry through digital innovation and sustainable practices.",
+    "description1": "Bhatta Mitra™, though officially launched in 2025, but has it's roots traced back to 2013 when the founder, Mr. Varun Goel, entered the brick manufacturing industry. Our founder is well-acquainted with the complexities and daily challenges faced by brick kiln owners. This understanding and hardships led to the development of an idea specifically designed to address these issues and help overcome the difficulties inherent in this otherwise marvelous industry. India is the second-largest producer of bricks globally, producing approximately 250 billion bricks annually, supported by around 140,000 brick kilns employing approximately 15 million workers ( Fun but Facts)",
+    "description2": "The brick kiln industry in India suffers from lack of standardization, minimal policy oversight, and operates largely in an unregulated, informal manner. These issues lead to poor quality control, unsafe labor practices, and environmental harm. Bhatta Mitra aims to address these challenges by introducing digital transparency, standard practices, and formal linkages for kiln owners and workers alike while lifting the economic quotient of Brick kiln owners.",
+    "imageAlt": "Indian brick kiln manufacturing process"
+  },
+  "platformOverview": {
+    "title": "Bhatta Mitra™ - Creating Value for Manufacturers",
+    "subtitle": "Where digital technology meets traditional craftsmanship",
+    "eentBazaar": {
+      "title": "e-ENT BAZAAR ™",
+      "description": "Connecting brick buyers with local manufacturers based on their location"
+    },
+    "coalTransport": {
+      "title": "Coal and Transportation Procurement",
+      "description": "Streamlining Supply Chain Management - Quality Guaranteed"
+    },
+    "labourHiring": {
+      "title": "Labour Hiring",
+      "description": "Hire fraud-free*, skilled and efficient workers"
+    },
+    "innovation": {
+      "title": "Innovation and Sustainability",
+      "description": "Innovative and sustainable future technologies"
+    }
+  },
+  "onboardingSteps": {
+    "title": "How to onboard with Bhatta Mitra™ for all Users",
+    "subtitle": "Discover the key features of our platform",
+    "manufacturerOnboarding": {
+      "title": "Manufacturer Onboarding",
+      "description": "Bhatta Mitra™ - Free for all. Exclusive for the best. Manufacturers can onboard on our platform by clicking on our Join Waitlist button or by registering themselves on the Manufacturer Dashboard."
+    },
+    "coalProviderOnboarding": {
+      "title": "Coal Provider Onboarding",
+      "description": "Bhatta Mitra™ - Exclusive for the Best. Coal providers can onboard on our platform by registering themselves on the coal provider dashboard."
+    },
+    "transportOnboarding": {
+      "title": "Transporter Onboarding",
+      "description": "Bhatta Mitra™ - Exclusive to the Best. Transport providers can onboard on our platform by registering themselves on the transporter dashboard."
+    },
+    "labourOnboarding": {
+      "title": "Labour/Contractor Onboarding",
+      "description": "Bhatta Mitra™ - Inclusive for all Labour. Labour and Contractors can onboard on our platform by registering themselves on the Labour/Contractor dashboard."
+    },
+    "onboardingSupport": {
+      "title": "Onboarding Support 10/6",
+      "description": "Bhatta Mitra™ - Provides onboarding support for all user's technical needs. Please contact us below:"
+    }
+  },
+  "transparencySection": {
+    "title": "Our Growing Community",
+    "subtitle": "Join growing number of stakeholders who trust Bhatta Mitra™ for their business needs",
+    "manufacturers": {
+      "title": "Manufacturers",
+      "subtitle": "Registered brick kiln owners"
+    },
+    "coalProviders": {
+      "title": "Coal Providers",
+      "subtitle": "Verified fuel suppliers"
+    },
+    "transportProviders": {
+      "title": "Transport Providers",
+      "subtitle": "Logistics partners"
+    },
+    "labour": {
+      "title": "Labour",
+      "subtitle": "Registered workers"
+    }
+  },
+  "services": {
+    "hero": {
+      "title": "Our Services",
+      "subtitle": "Comprehensive solutions for Brick Kiln Owners (BKOs) and other stakeholders in the brick manufacturing industry"
+    },
+    "title": "Our Services",
+    "description": "Comprehensive solutions for Brick Kiln Owners ( BKOs) and other stakeholders",
+    "free": {
+      "title": "Free Services",
+      "description": "Available to all registered users",
+      "items": [
+        "Access to Brick Buyer's Orders from Bhatta Mitra's e-ENT BAZAAR platform",
+        "List of certified Coal/Fuel and Transport Providers",
+        "Free Labour Hiring forms and Real time Labour fraud alert(s)",
+        "Access to Bhatta Mitra Digital platform for basic stakeholder communication tools",
+        "Blogs & Resources for Innovative new technologies",
+        "Access to many upcoming features and paid services at discounted prices"
+      ]
+    },
+    "exclusive": {
+      "title": "Exclusive Services",
+      "description": "Limited availability premium services",
+      "items": [
+        "Free services plus",
+        "Access to bulk sales orders",
+        "Advanced analytics and reporting",
+        "Priority access to new features",
+        "Dedicated support team",
+        "Customized solutions for your business",
+        "Marketing and brand building"
+      ],
+      "note": ""
+    },
+    "waitlistConcept": {
+      "title": "Why Waitlist Concept is Introduced by Bhatta Mitra™?",
+      "purpose": "Purpose of Waiting List for Bhatta Mitra™ :",
+      "qualityControl": "Maintain Quality Control: Only genuine, serious, compliant, and reliable manufacturers and service providers are onboarded.",
+      "balancedSupply": "Ensure Balanced Supply: Prevent over-saturation in a single area or district.",
+      "userExperience": "For customers, this model avoids overcrowding of low-quality suppliers, leading to better service quality and competitive but fair pricing , direct from the source.",
+      "bestInBusiness": "\"You're not choosing from anyone—you're choosing from the best in the business.\"",
+      "joinToday": "Join Today for early access to Bhatta Mitra™ Revolution !!!"
+    },
+    "manufacturersSection": {
+      "title": "Bhatta Mitra™ for Manufacturers",
+      "mainText": "Take Your Brick Bhatta Business Online — For FREE. Join thousands of brick kiln owners who want to grow their business digitally, Lets Do it with Bhatta Mitra™.",
+      "freeAccount": {
+        "title": "Free Account Benefits:",
+        "benefit1": "📑 Get listed on the e-ENT Bazaar™ — India's first online brick marketplace",
+        "benefit2": "🔗 Connect directly with Coal suppliers, Transporters and Labour personnel",
+        "benefit3": "👷 Getting Assist in hiring Fraud free and efficient labour",
+        "benefit4": "🖥️ Industry Innovative, digital products and News at your disposal",
+        "benefit5": "📢 Upcoming Services and Products at discounted price",
+        "noFees": "🎯 100% Free. No commissions. No subscriptions."
+      },
+      "verifiedPartner": {
+        "title": "Want More Growth? Become a Verified & Exclusive Manufacturer",
+        "subtitle": "Limited. Exclusive. High Visibility.",
+        "benefit1": "Top search ranking in your district",
+        "benefit2": "Verified Badge for Trust & Authenticity",
+        "benefit3": "Priority leads from premium and bulk buyers",
+        "benefit4": "Advanced AI & SaaS tools for sales, performance & growth",
+        "benefit5": "District-wise exclusivity — only a few seats per district",
+        "exclusivity": "Not for everyone — only for serious, quality-driven kilns.",
+        "questionnaire": "Fill out our Questionnaire - Join the waiting list now!"
+      },
+      "waitingListAlert": "Waiting List Alert — To maintain trust, fairness, and quality, the Verified Exclusive Partner program is limited to a small number of kilns in every district.",
+      "joinWaitingList": "",
+      "callToAction": {
+        "title": "🔥 Start Now — 3 Simple Steps:",
+        "step1": "✅ Step 1: Register for your Free Account on Manufacturer Dashboard",
+        "step2": "✅ Step 2: Fill out your genuine information in the onboarding or registration form",
+        "step3": "✅ Step 3: Apply for Verified & Exclusive manufacturer membership while onboarding or click on Join Waitlist button , take a quiz at"
+      }
+    },
+    "coalTransportSection": {
+      "title": "Bhatta Mitra™ for Coal Suppliers & Transport Providers",
+      "mainText": "Grow Your Business with India's First Digital Brick Industry Network and connect directly with hundreds of brick kilns in your region. No middlemen. No commissions.",
+      "coalSuppliers": {
+        "title": "For Coal Suppliers",
+        "benefit1": "Get direct inquiries from brick kilns",
+        "benefit2": "Display rates, availability, and delivery capacity",
+        "benefit3": "Connect with verified kiln owners in your district and beyond",
+        "benefit4": "Expand to new markets beyond your local area"
+      },
+      "transportProviders": {
+        "title": "For Transport Providers (Truck, Tractor, Loader Operators)",
+        "benefit1": "Get regular bookings from kiln owners and buyers",
+        "benefit2": "Showcase your GENUINE FRAUD FREE GUARANTEE MOTTO and publish availability and service areas",
+        "benefit3": "Build long-term partnerships with manufacturers and suppliers"
+      },
+      "exclusivity": "Only Verified & Exclusive Partners (Limited Seats only) - For serious, reliable, and high-performing providers only.",
+
+      "joinWaitlist": "Join our waiting list of Coal / Transport Providers.",
+      "howItWorks": {
+        "title": "How It Works:",
+        "step1": "Step 1 → Register free from your Coal Provider or Transporter dashboard",
+        "step2": "Step 2 → Create Your Business Profile and submit all the genuine documents",
+        "step3": "Step 3 → Bhatta Mitra™ team will verify and put you in Waiting list to become a verified and exclusive provider"
+      }
+    },
+    "labourSection": {
+      "title": "Bhatta Mitra™ for Labour / Contractors",
+      "mainText": "🧱 What is Bhatta Mitra™ for Labour? A free, easy-to-use digital platform where brick kiln workers and labour contractors can directly find work and Skill Upgrade their skill through – Bhatta Mitra™ Initiative \"Empowering Hands. Building Futures.\"",
+      "individualLabour": {
+        "title": "For Individual Labour & Contractors",
+        "benefit1": "Create your profile – Free",
+        "benefit2": "Search for kilns hiring in your area or other states",
+        "benefit3": "Call kiln owners directly or chat via the app",
+        "benefit4": "Move towards secure, verified job opportunities",
+        "benefit5": "Connect with multiple kiln owners who need workers",
+        "benefit6": "Manage multiple contracts digitally — no paperwork mess or middlemen"
+      },
+      "noWaitingList": {
+        "title": "No Waiting List. No Charges. Always Open.",
+        "message": "Labour and Contractors are the backbone of the brick industry. Bhatta Mitra™ is 100% free for all workers — no limits, no waiting."
+      },
+      "onboardingProcess": {
+        "title": "Simple 3-Step Onboarding Process",
+        "workers": {
+          "title": "For Workers",
+          "step1": "Create Free Profile (Name, Skills, Experience, Location)",
+          "step2": "Search or Get Job Offers from Nearby Kilns",
+          "step3": "Accept Offer → Start Work with Verified Kiln"
+        },
+        "contractors": {
+          "title": "For Contractors",
+          "step1": "Create Contractor Profile (Labour Capacity, Experience, Locations)",
+          "step2": "Get Leads from Multiple Kilns",
+          "step3": "Confirm Contracts, Manage Labour, Grow Business"
+        }
+      }
+    }
+  },
+  "onboarding": {
+    "title": "Join our Waiting List",
+    "description": "Bhatta Mitra ™ membership open for only limited number of Brick Manufacturers (BKOs) from each district Pan India.",
+    "form": {
+      "title": "BRICK KILN OWNER (BKOs) ONBOARDING FORM",
+      "subtitle": "Join our waiting list to become a member and access our services for brick kiln owners.",
+      "fullName": "Full Name",
+      "email": "Email",
+      "country": "Country",
+      "selectCountry": "Select country",
+      "userCategory": "User Category",
+      "selectCategory": "Select your category",
+      "categoryDescription": "Select the category that best describes your business",
+      "manufacturer": "Manufacturer",
+      "endBuyer": "End Buyer",
+      "transportProvider": "Transport Provider",
+      "coalProvider": "Coal/Fuel Provider",
+      "phoneNumber": "Phone Number",
+      "phoneDescription": "Enter your phone number without the country code",
+      "companyName": "Company Name",
+      "city": "City",
+      "enterCity": "Enter city",
+      "pincode": "Pincode",
+      "enterPincode": "Enter pincode",
+      "state": "State",
+      "selectState": "Select state",
+      "district": "District",
+      "selectDistrict": "Select district",
+      "selectStateFirst": "Please select a state first",
+      "enterState": "Enter state",
+      "enterDistrict": "Enter district",
+      "kilnType": "Kiln Type",
+      "selectKilnType": "Select kiln type",
+      "zigzagKiln": "Zigzag Kiln",
+      "fcbtk": "FCBTK",
+      "hoffmanKiln": "Hoffman Kiln",
+      "tunnelKiln": "Tunnel Kiln",
+      "other": "Other",
+      "eximCode": "Exim Code",
+      "eximCodeDescription": "Optional for Nepal-based businesses",
+      "panNo": "PAN No",
+      "panNoDescription": "Required for Nepal-based businesses",
+      "businessGst": "Business GST",
+      "businessGstDescription": "Required for India-based businesses",
+      "additionalInfo": "Additional Information",
+      "additionalInfoPlaceholder": "Tell us more about your brick kiln operation or any specific requirements",
+      "additionalInfoDescription": "Optional: Share any additional details that might help us serve you better.",
+      "industryQuiz": "I'd like to take the Brick Industry Knowledge Quiz and be considered for exclusive services",
+      "industryQuizDescription": "Check this box to take our industry quiz and be considered for our limited exclusive services available to select brick kiln owners.",
+      "takeQuiz": "Take our industry knowledge quiz",
+      "opensNewTab": "(opens in a new tab)",
+      "submitJoinWaitlist": "Submit & Join Waitlist",
+      "submitting": "Submitting...",
+      "databaseConnection": "Database connection: OK",
+      "required": "*",
+      "exclusiveMembership": {
+        "title": "Exclusive Membership Interest",
+        "description": "Are you interested in our exclusive premium services? These include priority support, verified partner network access, and advanced business tools. Limited spots available per district.",
+        "checkboxLabel": "Yes, I'm interested in exclusive membership services"
+      },
+      "industryQuiz": {
+        "title": "Industry Assessment Quiz (Optional)",
+        "description": "Take our industry assessment quiz to help us understand your business better. This is completely optional and separate from your membership registration.",
+        "buttonText": "Take Assessment Quiz",
+        "opensNewTab": "(Opens in new tab)"
+      }
+    }
+  },
+  "footer": {
+    "description": "A free digital platform for brick kiln owners and stakeholders. A friend in your need.",
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "followUs": "Follow Us",
+    "copyright": "All rights reserved.",
+    "categories": {
+      "endBuyer": "End Buyer",
+      "manufacturer": "Manufacturer",
+      "coalFuelProvider": "Coal/Fuel Provider",
+      "transportProvider": "Transport Provider",
+      "labour": "Labour"
+    }
+  },
+  "buttons": {
+    "joinWaitlist": "Join Our Waitlist",
+    "joinWaitlistBrickManufacturers": "Join our Waitlist - Brick Manufacturers"
+  },
+  "waitlistConfirmation": {
+    "thankYou": "Thank you for joining our waitlist!",
+    "hello": "Hello",
+    "received": "We have received your information and added you to our waitlist. We'll send updates",
+    "updates": "as we get closer to new developments.",
+    "launchDate": "Launched Date",
+    "date": "April 30, 2025",
+    "nextSteps": "Next Steps",
+    "keepEye": "Keep an eye on your email for updates and special post-launch information.",
+    "close": "Close"
+  },
+  "blog": {
+    "title": "Blogs & Resources",
+    "subtitle": "Latest news and updates from Bhatta Mitra™",
+    "categories": "Categories",
+    "allPosts": "All Posts",
+    "industry": "Industry",
+    "technology": "Technology",
+    "innovation": "Innovation",
+    "readMore": "Read More",
+    "recentPosts": "Recent Posts",
+    "popularPosts": "Popular Posts",
+    "searchPlaceholder": "Search blog posts...",
+    "aboutTitle": "About Our Blog",
+    "aboutDescription": "Stay updated with the latest news, innovations, and insights from the brick kiln industry.",
+    "backToHome": "Back to Home",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of",
+    "searchPosts": "Search posts...",
+    "noPosts": "No posts found. Try a different search or category.",
+    "loading": "Loading...",
+    "error": "Failed to load blog content. Please try again later.",
+    "blogTitle": "Blogs & Resources",
+    "blogSubtitle": "Latest news and updates from Bhatta Mitra™",
+    "blogAboutTitle": "About Our Blog",
+    "blogAboutDescription": "Stay updated with the latest news, innovations, and insights from the brick kiln industry."
+  },
+  "eentMarket": {
+    "title": "e-ENT BAZAAR",
+    "comingSoon": "Content coming soon!",
+    "description": "Our electronic marketplace for brick kiln industry is under development. Please check back later for updates."
+  },
+  "reachUs": {
+    "title": "BHATTA MITRA™ - Reach Us",
+    "subtitle": "Get in touch with us. We're here to help and answer any questions you might have.",
+    "contactInfo": "Contact Information",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "addressText": "SAHARANPUR, UTTAR PRADESH (UP), INDIA 247232",
+    "hours": "Business Hours",
+    "workingHours": "Monday - Friday: 9:00 AM - 6:00 PM\nSaturday: 9:00 AM - 2:00 PM\nSunday: Closed",
+    "followUs": "Follow Us",
+    "sendMessage": "Send us a Message",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "subject": "Subject",
+    "message": "Message",
+    "userCategory": "User Category",
+    "selectCategory": "Select your category",
+    "sending": "Sending...",
+    "getInTouch": "Get in Touch",
+    "businessHours": "Monday - Friday: 9:00 AM - 6:00 PM\nSaturday: 9:00 AM - 2:00 PM\nSunday: Closed"
+  },
+  "admin": {
+    "customerAnalytics": {
+      "title": "Customer Analytics",
+      "loading": "Loading analytics data...",
+      "totalCustomers": "Total Customers",
+      "overallOnboarded": "Overall onboarded customers",
+      "interestedInExclusive": "interested in exclusive services",
+      "topStates": "Top States",
+      "distributionByState": "Distribution by state",
+      "kilnTypes": "Kiln Types",
+      "distributionByKilnType": "Distribution by kiln type",
+      "monthlyTrend": "Monthly Onboarding Trend",
+      "newCustomersPerMonth": "New customers per month",
+      "noData": "No data available",
+      "noMonthlyData": "No monthly data available"
+    },
+    "customersList": {
+      "title": "Onboarded Customers Database",
+      "description": "View and manage all customers who have joined the Bhatta Mitra™ platform",
+      "searchPlaceholder": "Search by name, email, or company...",
+      "filterByState": "Filter by State",
+      "allStates": "All States",
+      "filterByKilnType": "Filter by Kiln Type",
+      "allKilnTypes": "All Kiln Types",
+      "exclusiveServices": "Exclusive Services",
+      "allCustomers": "All Customers",
+      "interestedInExclusive": "Interested in Exclusive",
+      "notInterested": "Not Interested",
+      "exportCsv": "Export CSV",
+      "name": "Name",
+      "company": "Company",
+      "contact": "Contact",
+      "location": "Location",
+      "kilnType": "Kiln Type",
+      "exclusive": "Exclusive",
+      "joined": "Joined",
+      "status": "Status",
+      "yes": "Yes",
+      "no": "No",
+      "active": "active",
+      "pending": "pending",
+      "unknown": "unknown",
+      "noCustomers": "No customers found. Adjust filters or add new customers.",
+      "showing": "Showing",
+      "of": "of",
+      "customers": "customers",
+      "loading": "Loading customer data...",
+      "error": "Error loading customer data"
+    },
+    "waitlistViewer": {
+      "title": "Waitlist Submissions",
+      "description": "View and manage all user submissions to the Bhatta Mitra™ waitlist.",
+      "searchPlaceholder": "Search submissions...",
+      "exportData": "Export Data",
+      "clearAllData": "Clear All Data",
+      "confirmDelete": "Are you absolutely sure?",
+      "deleteWarning": "This action cannot be undone. This will permanently delete all waitlist submissions stored in your browser.",
+      "cancel": "Cancel",
+      "yesDelete": "Yes, delete all data",
+      "noSubmissions": "No submissions yet",
+      "noSubmissionsDescription": "When users submit the onboarding form, their data will appear here.",
+      "listOfSubmissions": "A list of all waitlist submissions.",
+      "name": "Name",
+      "email": "Email",
+      "company": "Company",
+      "location": "Location",
+      "kilnType": "Kiln Type",
+      "date": "Date",
+      "totalSubmissions": "Total submissions",
+      "showing": "Showing",
+      "of": "of",
+      "submissions": "submissions"
+    }
+  },
+  "dashboardAccess": {
+    "title": "Dashboard Access",
+    "subtitle": "Choose the right dashboard for your business",
+    "manufacturerDashboard": {
+      "title": "Manufacturer Dashboard",
+      "description": "Brick Kiln Owners (BKOs) Area",
+      "loginRegister": "Login / Register"
+    },
+    "coalProviderDashboard": {
+      "title": "Coal Provider Dashboard",
+      "description": "Coal Vendors Area",
+      "loginRegister": "Login / Register"
+    },
+    "transporterDashboard": {
+      "title": "Transporter Dashboard",
+      "description": "Transporter Area",
+      "loginRegister": "Login / Register"
+    },
+    "labourProviderDashboard": {
+      "title": "Labour/Contractor Dashboard",
+      "description": "Labour/Contractor Area",
+      "loginRegister": "Login / Register"
+    }
+  },
+  "content": {
+    "heroTitle": "Bhatta Mitra™ - Digital Platform for Brick Kiln Industry",
+    "heroSubtitle": "A professional landing page for Bhatta Mitra™, a free digital platform connecting brick kiln owners with stakeholders",
+    "countdownTitle": "Platform Unlocked",
+    "countdownDescription": "We are excited to announce that Bhatta Mitra™ will be launching on April 30, 2025. Join our waitlist to be among the first to access our platform.",
+    "countdownLaunchMessage": "LAUNCHED ON 30TH APRIL 2025, BRICK KILN OWNERS (BKOs) CAN FILL UP THE ONBOARDING FORM TO JOIN OUR MEMBERSHIP WAITINGLIST",
+    "countdownPlatformUnlocked": "UNLOCKED OUR DIGITAL PLATFORM SERVICES FOR ALL STAKEHOLDERS. PLEASE CONTACT US TO JOIN OUR UNIQUE PLATFORM.",
+    "servicesTitle": "Our Services",
+    "servicesDescription": "Comprehensive solutions for the brick kiln industry",
+    "freeServicesTitle": "Free Services",
+    "freeServicesDescription": "Available to all registered users",
+    "exclusiveServicesTitle": "Exclusive Services",
+    "exclusiveServicesDescription": "Limited availability premium services",
+    "freeServiceItem1": "Buy e-ENT dashboard for Red Brick Buyers",
+    "freeServiceItem2": "List of certified Coal/Fuel and Transport providers",
+    "freeServiceItem3": "Labor recruitment reports and forms and real-time fraud alerts",
+    "freeServiceItem4": "Digital resource management",
+    "freeServiceItem5": "Basic stakeholder communication tools",
+    "freeServiceItem6": "Industry updates and news",
+    "freeServiceItem7": "Blogs and resources for innovative and new technologies",
+    "exclusiveServiceItem1": "Free services plus",
+    "exclusiveServiceItem2": "Access to bulk sales orders",
+    "exclusiveServiceItem3": "Advanced analytics and reporting",
+    "exclusiveServiceItem4": "Priority access to new features",
+    "exclusiveServiceItem5": "Dedicated support team",
+    "exclusiveServiceItem6": "Customized solutions for your business",
+    "exclusiveServiceItem7": "Marketing and brand building",
+    "exclusiveServiceNote": "Fill up our Questionnaire- Join the waitlist now!",
+    "aboutTitle": "About Us",
+    "aboutDescription1": "Bhatta Mitra™ thought officially launched in 2025, but has it's roots traced back to 2013 when the founder, Mr. Varun Goel, entered the brick manufacturing industry. Our founder is well-acquainted with the complexities and daily challenges faced by brick kiln owners. This understanding and hardships led to the development of an idea specifically designed to address these issues and help overcome the difficulties inherent in this otherwise marvelous industry. India is the second-largest producer of bricks globally, producing approximately 250 billion bricks annually, supported by around 140,000 brick kilns employing approximately 15 million workers ( Fun but Facts)",
+    "aboutDescription2": "The brick kiln industry in India suffers from lack of standardization, minimal policy oversight, and operates largely in an unregulated, informal manner. These issues lead to poor quality control, unsafe labor practices, and environmental harm. Bhatta Mitra aims to address these challenges by introducing digital transparency, standard practices, and formal linkages for kiln owners and workers alike while lifting the economic quotient of Brick kiln owners.",
+    "blogTitle": "Blogs & Resources",
+    "blogSubtitle": "Latest news and updates from Bhatta Mitra™",
+    "blogAboutTitle": "About Our Blog",
+    "blogAboutDescription": "Stay updated with the latest news, innovations, and insights from the brick kiln industry.",
+    "waitlistTitle": "Join our Waiting List as we will have limited number of Brick kiln Owners as our Members per district pan India",
+    "waitlistDescription": "Fill out the onboarding form below to secure your membership in our exclusive platform.",
+    "reachUsTitle": "Reach Us",
+    "reachUsSubtitle": "Get in touch with us. We are here to help and answer any questions you might have.",
+    "reachUsContactInfo": "Contact Information",
+    "reachUsEmail": "Email",
+    "reachUsPhone": "Phone",
+    "reachUsAddress": "Address",
+    "reachUsHours": "Business Hours",
+    "reachUsFollowUs": "Follow Us",
+    "reachUsSendMessage": "Send us a Message",
+    "reachUsFirstName": "First Name",
+    "reachUsLastName": "Last Name",
+    "reachUsSubject": "Subject",
+    "reachUsMessage": "Message",
+    "contactEmail": "BHATTAMITRA@PROTONMAIL.COM",
+    "contactPhone": "+918008009560",
+    "contactAddress": "SAHARANPUR, UTTAR PRADESH (UP), INDIA 247232",
+    "businessHours": "Monday - Friday: 9:00 AM - 6:00 PM\nSaturday: 9:00 AM - 2:00 PM\nSunday: Closed",
+    "navAboutUs": "About Us",
+    "navEentMarket": "e-ENT BAZAAR",
+    "navServices": "Services",
+    "navJoinWaitlist": "Join Waitlist",
+    "navBlog": "Blogs & Resources",
+    "navReachUs": "Reach Us",
+    "headerLoginDashboard": "Login Dashboard",
+    "headerDashboardBrickKilnOwners": "Brick Kiln Owners",
+    "headerDashboardCoalProviders": "Coal/Fuel Providers",
+    "headerDashboardTransportProviders": "Transport Providers",
+    "headerDashboardServiceProviders": "Service/Product Providers",
+    "headerDashboardLabour": "Labour",
+    "footerDescription": "A free digital platform for brick kiln owners and stakeholders. A friend in your need.",
+    "footerQuickLinks": "Quick Links",
+    "footerContact": "Contact",
+    "footerFollowUs": "Follow Us",
+    "footerCopyright": "All rights reserved."
+  },
+  "manufacturerDashboard": {
+    "title": "Manufacturer Dashboard",
+    "logout": "Logout",
+    "companyProfile": "Company Profile",
+    "products": "Products",
+    "orders": "Orders",
+    "quotations": "Quotations",
+    "inquiries": "Inquiries",
+    "coalFuel": "Coal/Fuel",
+    "transport": "Transport"
+  },
+  "editProfile": {
+    "title": "Edit Profile",
+    "description": "Update your account information",
+    "backToProfile": "Back to Profile",
+    "personalInfo": "Personal Information",
+    "name": "Name",
+    "namePlaceholder": "Your full name",
+    "email": "Email",
+    "emailPlaceholder": "Your email address",
+    "company": "Company",
+    "companyPlaceholder": "Your company name",
+    "gstDetails": "GST Details",
+    "gstPlaceholder": "GST number",
+    "location": "Location",
+    "country": "Country",
+    "selectCountry": "Select country",
+    "state": "State",
+    "selectState": "Select state",
+    "district": "District",
+    "selectDistrict": "Select district",
+    "city": "City",
+    "cityPlaceholder": "Your city",
+    "pinCode": "PIN Code",
+    "pinCodePlaceholder": "PIN code",
+    "cancel": "Cancel",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "loadingProfile": "Loading profile...",
+    "error": "Error",
+    "userNotAuthenticated": "User not authenticated",
+    "success": "Success",
+    "profileUpdated": "Profile updated successfully",
+    "unexpectedError": "An unexpected error occurred while updating your profile"
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Revolutionizing the brick kiln industry through digital innovation and sustainable practices.",
+    "description1": "Bhatta Mitra™, though officially launched in 2025, but has it's roots traced back to 2013 when the founder, Mr. Varun Goel, entered the brick manufacturing industry. Our founder is well-acquainted with the complexities and daily challenges faced by brick kiln owners. This understanding and hardships led to the development of an idea specifically designed to address these issues and help overcome the difficulties inherent in this otherwise marvelous industry. India is the second-largest producer of bricks globally, producing approximately 250 billion bricks annually, supported by around 140,000 brick kilns employing approximately 15 million workers ( Fun but Facts)",
+    "description2": "The brick kiln industry in India suffers from lack of standardization, minimal policy oversight, and operates largely in an unregulated, informal manner. These issues lead to poor quality control, unsafe labor practices, and environmental harm. Bhatta Mitra aims to address these challenges by introducing digital transparency, standard practices, and formal linkages for kiln owners and workers alike while lifting the economic quotient of Brick kiln owners.",
+    "imageAlt": "Indian brick kiln manufacturing process",
+    "keyFeatures": {
+      "digitalInnovation": {
+        "title": "Digital Innovation",
+        "description": "Cutting-edge technology solutions for modern brick manufacturing"
+      },
+      "connectedNetwork": {
+        "title": "Connected Network",
+        "description": "Seamless connections between all industry stakeholders"
+      }
+    },
+    "missionVision": {
+      "title": "Our Mission & Vision",
+      "subtitle": "Building a sustainable future for the brick manufacturing industry",
+      "mission": {
+        "title": "Our Mission",
+        "description": "To revolutionize the brick kiln industry by providing innovative digital solutions that enhance efficiency, promote sustainability, and create value for all stakeholders in the manufacturing ecosystem."
+      },
+      "vision": {
+        "title": "Our Vision",
+        "description": "To become the leading digital platform that transforms traditional brick manufacturing into a modern, sustainable, and interconnected industry that serves communities across India and beyond."
+      }
+    }
+  }
+}
