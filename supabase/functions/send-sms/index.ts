@@ -1,38 +1,34 @@
 import { corsHeaders } from "@shared/cors.ts";
-
 Deno.serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders });
+    return new Response("ok", {
+      headers: corsHeaders,
+    });
   }
-
   try {
-    console.log("📱 [SEND-SMS] Request method:", req.method);
+    console.log("📱 [MTALKZ-SMS] Request method:", req.method);
     console.log(
-      "📱 [SEND-SMS] Request headers:",
+      "📱 [MTALKZ-SMS] Request headers:",
       Object.fromEntries(req.headers.entries()),
     );
-
     let requestBody = {};
-
     // Check if request has a body
     const contentType = req.headers.get("content-type");
-    console.log("📱 [SEND-SMS] Content-Type:", contentType);
-
+    console.log("📱 [MTALKZ-SMS] Content-Type:", contentType);
     if (contentType && contentType.includes("application/json")) {
       try {
         const bodyText = await req.text();
-        console.log("📱 [SEND-SMS] Raw request body:", bodyText);
-
+        console.log("📱 [MTALKZ-SMS] Raw request body:", bodyText);
         if (bodyText.trim()) {
           requestBody = JSON.parse(bodyText);
-          console.log("📱 [SEND-SMS] Parsed request body:", requestBody);
+          console.log("📱 [MTALKZ-SMS] Parsed request body:", requestBody);
         } else {
-          console.log("📱 [SEND-SMS] Empty request body, using defaults");
+          console.log("📱 [MTALKZ-SMS] Empty request body, using defaults");
         }
       } catch (parseError) {
         console.error(
-          "📱 [SEND-SMS] Failed to parse request body:",
+          "📱 [MTALKZ-SMS] Failed to parse request body:",
           parseError,
         );
         return new Response(
@@ -42,23 +38,27 @@ Deno.serve(async (req) => {
           }),
           {
             status: 400,
-            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            headers: {
+              ...corsHeaders,
+              "Content-Type": "application/json",
+            },
           },
         );
       }
     } else {
-      console.log("📱 [SEND-SMS] No JSON content-type, using defaults");
+      console.log("📱 [MTALKZ-SMS] No JSON content-type, using defaults");
     }
-
     const { phone, templateName } = requestBody;
     const finalTemplateName = templateName || "Login OTP BHMITRA"; // Use provided template or fallback
     const senderId = "BMITR";
-    console.log("📱 [SEND-SMS] Extracted phone:", phone);
-    console.log("📱 [SEND-SMS] Using templateName:", finalTemplateName);
-    console.log("📱 [SEND-SMS] Using senderId:", senderId);
-
+    console.log("📱 [MTALKZ-SMS] Extracted phone:", phone);
+    console.log("📱 [MTALKZ-SMS] Using templateName:", finalTemplateName);
+    console.log("📱 [MTALKZ-SMS] Using senderId:", senderId);
     if (!phone) {
-      console.error("📱 [SEND-SMS] Missing required fields - phone:", !!phone);
+      console.error(
+        "📱 [MTALKZ-SMS] Missing required fields - phone:",
+        !!phone,
+      );
       return new Response(
         JSON.stringify({
           success: false,
@@ -66,57 +66,73 @@ Deno.serve(async (req) => {
         }),
         {
           status: 400,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json",
+          },
         },
       );
     }
-
-    // Get 2Factor API key from environment
+    // Get MTalkz API key from environment
     console.log(
-      "📱 [SEND-SMS] Checking for TWOFACTOR_API_KEY environment variable...",
+      "📱 [MTALKZ-SMS] Checking for MTALKZ_API_KEY environment variable...",
     );
-
-    const twoFactorApiKey = Deno.env.get("TWOFACTOR_API_KEY");
-    console.log("📱 [SEND-SMS] TWOFACTOR_API_KEY exists:", !!twoFactorApiKey);
-
-    if (!twoFactorApiKey) {
-      console.error("📱 [SEND-SMS] TWOFACTOR_API_KEY not found in environment");
+    const mtalkzApiKey = Deno.env.get("MTALKZ_API_KEY");
+    console.log("📱 [MTALKZ-SMS] MTALKZ_API_KEY exists:", !!mtalkzApiKey);
+    if (!mtalkzApiKey) {
+      console.error("📱 [MTALKZ-SMS] MTALKZ_API_KEY not found in environment");
       return new Response(
         JSON.stringify({
           success: false,
-          message: "OTP service not configured - TWOFACTOR_API_KEY missing",
+          message: "OTP service not configured - MTALKZ_API_KEY missing",
         }),
         {
           status: 500,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json",
+          },
         },
       );
     }
-
-    // Format phone number for 2Factor API (remove + sign)
+    // Generate 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    console.log("📱 [MTALKZ-SMS] Generated OTP:", otp);
+    // Format phone number for MTalkz API (remove + sign)
     const formattedPhone = phone.startsWith("+") ? phone.substring(1) : phone;
-    console.log("📱 [SEND-SMS] Original phone:", phone);
-    console.log("📱 [SEND-SMS] Formatted phone:", formattedPhone);
-
-    // Call 2Factor API
-    const apiUrl = `https://2factor.in/API/V1/${twoFactorApiKey}/SMS/${formattedPhone}/AUTOGEN/${encodeURIComponent(finalTemplateName)}`;
-
-    console.log(
-      "📱 [SEND-SMS] Calling 2Factor API:",
-      apiUrl.replace(twoFactorApiKey, "[REDACTED]"),
-    );
-
+    console.log("📱 [MTALKZ-SMS] Original phone:", phone);
+    console.log("📱 [MTALKZ-SMS] Formatted phone:", formattedPhone);
+    // Prepare message with OTP
+    const message = `Dear User, Your Bhatta Mitra's OTP is : ${otp}. This code will expire in 5 minutes. Do not share this code with anyone. - Team Savitur Intelligence Pvt Ltd `;
+    console.log("📱 [MTALKZ-SMS] Message:", message);
+    // Call MTalkz API - Using GET request with query parameters as per documentation
+    const baseUrl = "https://msgn.mtalkz.com/api";
+    const queryParams = new URLSearchParams({
+      apikey: mtalkzApiKey,
+      senderid: senderId,
+      message: message,
+      number: formattedPhone,
+      format: "json",
+    });
+    const apiUrl = `${baseUrl}?${queryParams.toString()}`;
+    console.log("📱 [MTALKZ-SMS] Calling MTalkz API:", baseUrl);
+    console.log("📱 [MTALKZ-SMS] Query params (API key redacted):", {
+      apikey: "[REDACTED]",
+      senderid: senderId,
+      message: message,
+      number: formattedPhone,
+      format: "json",
+    });
     const response = await fetch(apiUrl, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        Accept: "application/json",
       },
     });
-
     if (!response.ok) {
       const errorText = await response.text();
       console.error(
-        "📱 [SEND-SMS] 2Factor API request failed:",
+        "📱 [MTALKZ-SMS] MTalkz API request failed:",
         response.status,
         response.statusText,
         errorText,
@@ -133,22 +149,24 @@ Deno.serve(async (req) => {
         }),
         {
           status: 500,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json",
+          },
         },
       );
     }
-
     let result;
     try {
       result = await response.json();
-      console.log("📱 [SEND-SMS] 2Factor API response:", result);
+      console.log("📱 [MTALKZ-SMS] MTalkz API response:", result);
     } catch (jsonError) {
       console.error(
-        "📱 [SEND-SMS] Failed to parse 2Factor API response as JSON:",
+        "📱 [MTALKZ-SMS] Failed to parse MTalkz API response as JSON:",
         jsonError,
       );
       const responseText = await response.text();
-      console.error("📱 [SEND-SMS] Raw response:", responseText);
+      console.error("📱 [MTALKZ-SMS] Raw response:", responseText);
       return new Response(
         JSON.stringify({
           success: false,
@@ -160,53 +178,79 @@ Deno.serve(async (req) => {
         }),
         {
           status: 500,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json",
+          },
         },
       );
     }
-
-    if (result.Status === "Success") {
+    // Check MTalkz response format
+    if (
+      result.status === "OK" ||
+      result.status === "success" ||
+      result.success === true
+    ) {
       console.log(
-        "📱 [SEND-SMS] OTP sent successfully, session ID:",
-        result.Details,
+        "📱 [MTALKZ-SMS] OTP sent successfully, message ID:",
+        result.msgid || result.message_id || result.data?.message_id,
       );
       return new Response(
         JSON.stringify({
           success: true,
           message: "OTP sent successfully",
-          sessionId: result.Details,
+          sessionId: otp,
+          messageId:
+            result.msgid || result.message_id || result.data?.message_id,
         }),
         {
           status: 200,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json",
+          },
         },
       );
     } else {
-      console.error("📱 [SEND-SMS] 2Factor API returned error:", result);
+      console.error("📱 [MTALKZ-SMS] MTalkz API returned error:", result);
       return new Response(
         JSON.stringify({
           success: false,
-          message: result.Details || "Failed to send OTP",
+          message:
+            result.message ||
+            result.error ||
+            result.desc ||
+            "Failed to send OTP",
           debug: {
             apiResponse: result,
           },
         }),
         {
           status: 400,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json",
+          },
         },
       );
     }
   } catch (error) {
-    console.error("Error in send-sms function:", error);
+    console.error("📱 [MTALKZ-SMS] Error in send-sms function:", error);
     return new Response(
       JSON.stringify({
         success: false,
         message: "Internal server error",
+        debug: {
+          error: error.message,
+          stack: error.stack,
+        },
       }),
       {
         status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json",
+        },
       },
     );
   }
