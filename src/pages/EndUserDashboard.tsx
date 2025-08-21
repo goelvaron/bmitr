@@ -235,9 +235,21 @@ const EndUserDashboard: React.FC = () => {
     const filtered = manufacturers.filter((m) => {
       const manuLat = m.location.latitude;
       const manuLng = m.location.longitude;
-      if (!manuLat || !manuLng) return false;
-      const dist = haversineDistance(lat, lng, manuLat, manuLng);
+
+      // Calculate distance for all manufacturers
+      const dist =
+        manuLat && manuLng
+          ? haversineDistance(lat, lng, manuLat, manuLng)
+          : 999;
       m.distance = dist;
+
+      // Always include featured manufacturers regardless of distance or coordinates
+      if (m.is_featured) {
+        return true;
+      }
+
+      // For non-featured manufacturers, require valid coordinates and apply distance filter
+      if (!manuLat || !manuLng) return false;
       return dist <= NEAR_ME_RADIUS_KM;
     });
     setNearMeManufacturers(filtered);
@@ -284,13 +296,7 @@ const EndUserDashboard: React.FC = () => {
       const totalCount = await fetchTotalManufacturerCount();
       setTotalManufacturerCount(totalCount);
 
-      // First try to fetch approved manufacturers
-      const { data: approvedOwners, error: approvedError } = await supabase
-        .from("manufacturers")
-        .select("*")
-        .eq("status", "approved");
-
-      // Then fetch all manufacturers as fallback
+      // Fetch all manufacturers except rejected ones
       const { data: allOwners, error: allOwnersError } = await supabase
         .from("manufacturers")
         .select("*");
@@ -300,15 +306,46 @@ const EndUserDashboard: React.FC = () => {
         throw allOwnersError;
       }
 
-      // Use approved manufacturers if available, otherwise use all manufacturers
-      let ownersToUse =
-        approvedOwners && approvedOwners.length > 0
-          ? approvedOwners
-          : allOwners;
+      // Filter out rejected manufacturers and test entries
+      let ownersToUse = (allOwners || []).filter((manufacturer) => {
+        // Exclude rejected manufacturers
+        if (manufacturer.status === "rejected") {
+          return false;
+        }
+        // Exclude test entries
+        if (manufacturer.is_test_entry === true) {
+          return false;
+        }
+        return true;
+      });
 
       console.log(
-        `Found ${ownersToUse?.length || 0} manufacturers to display out of ${totalCount} total:`,
-        ownersToUse,
+        `Found ${ownersToUse?.length || 0} manufacturers to display out of ${totalCount} total (excluding rejected and test entries):`,
+        ownersToUse?.map((m) => ({
+          id: m.id,
+          name: m.company_name || m.name,
+          status: m.status,
+          is_test_entry: m.is_test_entry,
+        })),
+      );
+
+      // Log status breakdown for debugging
+      const statusBreakdown = (allOwners || []).reduce(
+        (acc, m) => {
+          const status = m.status || "null";
+          acc[status] = (acc[status] || 0) + 1;
+          return acc;
+        },
+        {} as Record<string, number>,
+      );
+      console.log("Status breakdown of all manufacturers:", statusBreakdown);
+
+      const testEntryCount = (allOwners || []).filter(
+        (m) => m.is_test_entry === true,
+      ).length;
+      console.log(`Test entries excluded: ${testEntryCount}`);
+      console.log(
+        `Rejected manufacturers excluded: ${statusBreakdown["rejected"] || 0}`,
       );
 
       if (!ownersToUse || ownersToUse.length === 0) {
@@ -390,6 +427,7 @@ const EndUserDashboard: React.FC = () => {
               pincode: owner.pincode || "",
             },
             distance,
+            is_featured: owner.is_featured || false,
           };
         }),
       );
@@ -399,7 +437,17 @@ const EndUserDashboard: React.FC = () => {
         formattedManufacturers,
       );
 
-      setManufacturers(formattedManufacturers);
+      // Sort manufacturers to show featured ones first, then by distance
+      const sortedManufacturers = formattedManufacturers.sort((a, b) => {
+        // Featured manufacturers come first
+        if (a.is_featured && !b.is_featured) return -1;
+        if (!a.is_featured && b.is_featured) return 1;
+
+        // If both have same featured status, sort by distance
+        return a.distance - b.distance;
+      });
+
+      setManufacturers(sortedManufacturers);
 
       // If you want to implement location-based filtering, do it here using formattedManufacturers only
     } catch (error) {
@@ -496,6 +544,11 @@ const EndUserDashboard: React.FC = () => {
 
   // Apply all filters to manufacturers
   const filteredManufacturers = manufacturers.filter((manufacturer) => {
+    // ALWAYS include featured manufacturers regardless of any filters
+    if (manufacturer.is_featured) {
+      return true;
+    }
+
     const searchLower = searchQuery.toLowerCase();
 
     // Normalize manufacturer fields for comparison
@@ -624,8 +677,18 @@ const EndUserDashboard: React.FC = () => {
     return true;
   });
 
+  // Sort filtered manufacturers to ensure featured ones are always at the top
+  const sortedFilteredManufacturers = filteredManufacturers.sort((a, b) => {
+    // Featured manufacturers come first
+    if (a.is_featured && !b.is_featured) return -1;
+    if (!a.is_featured && b.is_featured) return 1;
+
+    // If both have same featured status, sort by distance
+    return (a.distance || 0) - (b.distance || 0);
+  });
+
   console.log(
-    `Filtered manufacturers: ${filteredManufacturers.length} out of ${manufacturers.length}`,
+    `Filtered manufacturers: ${sortedFilteredManufacturers.length} out of ${manufacturers.length}`,
   );
   console.log("Active filters:", {
     maxDistance,
@@ -645,16 +708,18 @@ const EndUserDashboard: React.FC = () => {
       distance: m.distance,
       hasProducts: m.products?.length > 0,
       productCount: m.products?.length || 0,
+      is_featured: m.is_featured,
     })),
   );
   console.log(
     "Filtered manufacturers:",
-    filteredManufacturers.map((m) => ({
+    sortedFilteredManufacturers.map((m) => ({
       id: m.id,
       name: m.name,
       distance: m.distance,
       hasProducts: m.products?.length > 0,
       productCount: m.products?.length || 0,
+      is_featured: m.is_featured,
     })),
   );
 
@@ -726,7 +791,7 @@ const EndUserDashboard: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-redFiredMustard-50">
+    <div className="flex flex-col min-h-screen bg-white">
       <Header
         scrollToSection={() => {}}
         aboutRef={{ current: null }}
@@ -738,11 +803,11 @@ const EndUserDashboard: React.FC = () => {
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="mb-8 flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-hotRed-700 mb-2">
+            <h1 className="text-3xl font-bold text-redFiredMustard-800 mb-2">
               e-ENT Bazaar Dashboard
             </h1>
             {userData && (
-              <p className="text-gray-600">
+              <p className="text-redFiredMustard-700">
                 Welcome, <span className="font-semibold">{userData.name}</span>!
                 Find and connect with brick manufacturers near you
               </p>
@@ -753,7 +818,7 @@ const EndUserDashboard: React.FC = () => {
           <div className="relative">
             <Button
               variant="ghost"
-              className="flex items-center gap-2 hover:bg-redFiredMustard-100"
+              className="flex items-center gap-2 hover:bg-redFiredMustard-100 text-redFiredMustard-700"
               onClick={() => setShowProfileMenu(!showProfileMenu)}
             >
               <UserCircle className="h-5 w-5" />
@@ -763,7 +828,7 @@ const EndUserDashboard: React.FC = () => {
             {showProfileMenu && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 py-1">
                 <button
-                  className="flex w-full items-center px-4 py-2 text-sm text-gray-700 hover:bg-redFiredMustard-50"
+                  className="flex w-full items-center px-4 py-2 text-sm text-redFiredMustard-700 hover:bg-redFiredMustard-50"
                   onClick={() => {
                     setShowProfileMenu(false);
                     navigate("/profile");
@@ -773,7 +838,7 @@ const EndUserDashboard: React.FC = () => {
                   View Profile
                 </button>
                 <button
-                  className="flex w-full items-center px-4 py-2 text-sm text-gray-700 hover:bg-redFiredMustard-50"
+                  className="flex w-full items-center px-4 py-2 text-sm text-redFiredMustard-700 hover:bg-redFiredMustard-50"
                   onClick={() => {
                     setShowProfileMenu(false);
                     navigate("/profile/edit");
@@ -783,7 +848,7 @@ const EndUserDashboard: React.FC = () => {
                   Edit Profile
                 </button>
                 <button
-                  className="flex w-full items-center px-4 py-2 text-sm text-red-600 hover:bg-redFiredMustard-50"
+                  className="flex w-full items-center px-4 py-2 text-sm text-redFiredMustard-800 hover:bg-redFiredMustard-50"
                   onClick={() => {
                     localStorage.removeItem("customerId");
                     navigate("/e-ent-bazaar");
@@ -812,7 +877,7 @@ const EndUserDashboard: React.FC = () => {
             <div className="flex gap-2">
               <Button
                 variant="outline"
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 border-redFiredMustard-600 text-redFiredMustard-700 hover:bg-redFiredMustard-600 hover:text-white"
                 onClick={nearMeActive ? handleClearNearMe : handleNearMe}
                 disabled={isLocating}
               >
@@ -827,7 +892,7 @@ const EndUserDashboard: React.FC = () => {
                 <PopoverTrigger asChild>
                   <Button
                     variant={activeFilters.length > 0 ? "default" : "outline"}
-                    className={`flex items-center gap-2 ${activeFilters.length > 0 ? "bg-hotRed-600 hover:bg-hotRed-700" : ""}`}
+                    className={`flex items-center gap-2 ${activeFilters.length > 0 ? "bg-redFiredMustard-600 hover:bg-redFiredMustard-700" : "border-redFiredMustard-600 text-redFiredMustard-700 hover:bg-redFiredMustard-600 hover:text-white"}`}
                   >
                     <SlidersHorizontal className="h-4 w-4" />
                     Filters{" "}
@@ -1054,7 +1119,7 @@ const EndUserDashboard: React.FC = () => {
               </Popover>
               <Button
                 onClick={() => loadManufacturers()}
-                className="bg-hotRed-600 hover:bg-hotRed-700"
+                className="bg-redFiredMustard-600 hover:bg-redFiredMustard-700 text-white"
               >
                 Refresh
               </Button>
@@ -1119,41 +1184,61 @@ const EndUserDashboard: React.FC = () => {
             <div className="flex gap-4">
               <Button
                 variant={activeTab === "marketplace" ? "default" : "outline"}
+                className={
+                  activeTab === "marketplace"
+                    ? "bg-redFiredMustard-600 hover:bg-redFiredMustard-700 text-white"
+                    : "border-redFiredMustard-600 text-redFiredMustard-700 hover:bg-redFiredMustard-600 hover:text-white"
+                }
                 onClick={() => setActiveTab("marketplace")}
               >
                 Marketplace
               </Button>
               <Button
                 variant={activeTab === "orders" ? "default" : "outline"}
+                className={
+                  activeTab === "orders"
+                    ? "bg-redFiredMustard-600 hover:bg-redFiredMustard-700 text-white"
+                    : "border-redFiredMustard-600 text-redFiredMustard-700 hover:bg-redFiredMustard-600 hover:text-white"
+                }
                 onClick={() => setActiveTab("orders")}
               >
                 Orders
               </Button>
               <Button
                 variant={activeTab === "quotations" ? "default" : "outline"}
+                className={
+                  activeTab === "quotations"
+                    ? "bg-redFiredMustard-600 hover:bg-redFiredMustard-700 text-white"
+                    : "border-redFiredMustard-600 text-redFiredMustard-700 hover:bg-redFiredMustard-600 hover:text-white"
+                }
                 onClick={() => setActiveTab("quotations")}
               >
                 Quotations
               </Button>
               <Button
                 variant={activeTab === "inquiries" ? "default" : "outline"}
+                className={
+                  activeTab === "inquiries"
+                    ? "bg-redFiredMustard-600 hover:bg-redFiredMustard-700 text-white"
+                    : "border-redFiredMustard-600 text-redFiredMustard-700 hover:bg-redFiredMustard-600 hover:text-white"
+                }
                 onClick={() => setActiveTab("inquiries")}
               >
                 Inquiries
               </Button>
             </div>
             {activeTab === "marketplace" && (
-              <div className="text-sm text-gray-600 bg-gray-50 px-3 py-2 rounded-lg">
+              <div className="text-sm text-redFiredMustard-700 bg-redFiredMustard-50 px-3 py-2 rounded-lg border border-redFiredMustard-200">
                 <span className="font-medium">Total Manufacturers:</span>{" "}
                 {totalManufacturerCount}
                 {nearMeActive && nearMeManufacturers !== null && (
-                  <span className="ml-2 text-blue-600">
+                  <span className="ml-2 text-redFiredMustard-800">
                     | Nearby: {nearMeManufacturers.length}
                   </span>
                 )}
                 {!nearMeActive && (
-                  <span className="ml-2 text-green-600">
-                    | Showing: {filteredManufacturers.length}
+                  <span className="ml-2 text-redFiredMustard-800">
+                    | Showing: {sortedFilteredManufacturers.length}
                   </span>
                 )}
               </div>
@@ -1163,7 +1248,7 @@ const EndUserDashboard: React.FC = () => {
             <>
               {nearMeActive && (
                 <div className="mb-4 flex flex-col items-center justify-center">
-                  <span className="text-base text-blue-700 font-medium text-center bg-blue-50 px-4 py-2 rounded shadow-sm">
+                  <span className="text-base text-redFiredMustard-800 font-medium text-center bg-redFiredMustard-50 px-4 py-2 rounded shadow-sm border border-redFiredMustard-200">
                     Showing manufacturers within {NEAR_ME_RADIUS_KM} km of your
                     current location.
                   </span>
@@ -1172,8 +1257,14 @@ const EndUserDashboard: React.FC = () => {
               <MatchedProducts
                 manufacturers={
                   nearMeActive && nearMeManufacturers !== null
-                    ? nearMeManufacturers
-                    : filteredManufacturers
+                    ? nearMeManufacturers.sort((a, b) => {
+                        // Featured manufacturers come first
+                        if (a.is_featured && !b.is_featured) return -1;
+                        if (!a.is_featured && b.is_featured) return 1;
+                        // If both have same featured status, sort by distance
+                        return (a.distance || 0) - (b.distance || 0);
+                      })
+                    : sortedFilteredManufacturers
                 }
                 isLoading={isLoading}
                 onClose={() => {}}

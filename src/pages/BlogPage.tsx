@@ -247,7 +247,7 @@ const BlogPage = () => {
                       </CardContent>
                       <CardFooter className="border-t p-6">
                         <Button asChild variant="outline" className="w-full">
-                          <Link to={`/blog/${post.id}`}>
+                          <Link to={`/posts/${post.id}`}>
                             {t("blog.readMore") || "Read More"}
                           </Link>
                         </Button>

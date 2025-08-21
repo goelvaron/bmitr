@@ -19,34 +19,60 @@ const BlogPostPage = () => {
 
   useEffect(() => {
     const fetchPost = async () => {
-      if (!slug) return;
+      if (!slug) {
+        setError("No post ID provided");
+        setLoading(false);
+        return;
+      }
 
       setLoading(true);
       setError(null);
 
       try {
-        // Get Blogger config from Supabase
-        const config = await getBloggerConfig();
+        console.log("Fetching post with slug:", slug);
 
-        // Use Edge Function to fetch post
-        console.log("Fetching post via Edge Function");
-        const { data, error: fetchError } = await supabase.functions.invoke(
-          "supabase-functions-blogger-fetch",
-          {
-            body: {
-              blogId: config.blogId,
-              apiKey: config.apiKey,
-              postId: slug,
+        // Try Edge Function first
+        try {
+          const config = await getBloggerConfig();
+          console.log("Using config:", config);
+
+          const { data, error: fetchError } = await supabase.functions.invoke(
+            "supabase-functions-blogger-fetch",
+            {
+              body: {
+                blogId: config.blogId,
+                apiKey: config.apiKey,
+                postId: slug,
+              },
             },
-          },
-        );
+          );
 
-        if (fetchError) {
-          throw new Error(fetchError.message);
+          if (fetchError) {
+            console.warn("Edge function error:", fetchError);
+            throw new Error(fetchError.message);
+          }
+
+          if (data && data.post) {
+            console.log(
+              "Post fetched successfully via Edge Function:",
+              data.post.title,
+            );
+            setPost(data.post);
+            return;
+          }
+        } catch (edgeError) {
+          console.warn("Edge function failed, trying direct API:", edgeError);
         }
 
-        if (data && data.post) {
-          setPost(data.post);
+        // Fallback to direct API call
+        console.log("Trying direct API call");
+        const directPost = await getBloggerPostById(slug);
+        if (directPost) {
+          console.log(
+            "Post fetched successfully via direct API:",
+            directPost.title,
+          );
+          setPost(directPost);
         } else {
           setError("Post not found");
         }
@@ -101,9 +127,7 @@ const BlogPostPage = () => {
               className="text-foreground/80 hover:text-foreground"
               asChild
             >
-              <Link to="/blog">
-                {t("blog.blogsAndResources") || "Blogs & Resources"}
-              </Link>
+              <Link to="/blog">Blogs & Resources</Link>
             </Button>
             <LanguageSelector />
           </div>
@@ -111,24 +135,28 @@ const BlogPostPage = () => {
       </header>
 
       <div className="container mx-auto px-4 py-12">
-        <Button variant="ghost" asChild className="mb-6">
-          <Link to="/#blog" className="flex items-center">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            {t("blog.backToBlog") || "Back to Blog"}
-          </Link>
-        </Button>
-
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            <p className="ml-4 text-muted-foreground">Loading blog post...</p>
           </div>
         ) : error ? (
           <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-md">
-            {error === "Post not found"
-              ? t("blog.postNotFound") || error
-              : error === "Failed to load blog post"
-                ? t("blog.failedToLoadPost") || error
-                : error}
+            <h3 className="font-semibold mb-2">Error Loading Post</h3>
+            <p>
+              {error === "Post not found"
+                ? t("blog.postNotFound") ||
+                  "The requested blog post could not be found."
+                : error === "Failed to load blog post"
+                  ? t("blog.failedToLoadPost") ||
+                    "Failed to load the blog post. Please try again later."
+                  : error}
+            </p>
+            <div className="mt-4">
+              <Button asChild variant="outline">
+                <Link to="/blog">Return to Blog</Link>
+              </Button>
+            </div>
           </div>
         ) : post ? (
           <div className="max-w-3xl mx-auto">
@@ -176,22 +204,27 @@ const BlogPostPage = () => {
 
             <div className="mt-12 pt-6 border-t">
               <Button asChild>
-                <Link to="/blog">
-                  {t("blog.backToAllPosts") || "Back to All Posts"}
-                </Link>
+                <Link to="/blog">Back To Blogs & Resources</Link>
               </Button>
             </div>
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-lg mb-4">
-              {t("blog.postNotFound") || "Post not found"}
+            <h2 className="text-2xl font-bold mb-4">Post Not Found</h2>
+            <p className="text-lg mb-6 text-muted-foreground">
+              {t("blog.postNotFound") ||
+                "The requested blog post could not be found or may have been removed."}
             </p>
-            <Button asChild>
-              <Link to="/#blog">
-                {t("blog.returnToBlog") || "Return to Blog"}
-              </Link>
-            </Button>
+            <div className="space-x-4">
+              <Button asChild>
+                <Link to="/blog">
+                  {t("blog.returnToBlog") || "Return to Blog"}
+                </Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link to="/">Go to Home</Link>
+              </Button>
+            </div>
           </div>
         )}
       </div>

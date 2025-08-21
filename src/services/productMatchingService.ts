@@ -13,6 +13,7 @@ interface Manufacturer {
     state: string;
   };
   distance?: number; // Will be calculated based on user location
+  is_featured?: boolean; // Whether this manufacturer is featured
 }
 
 interface Product {
@@ -91,7 +92,8 @@ const fetchManufacturersFromSupabase = async (): Promise<Manufacturer[]> => {
         latitude,
         longitude,
         status,
-        is_test_entry
+        is_test_entry,
+        is_featured
       `,
       );
     // Removed the filters to get all manufacturers first
@@ -113,27 +115,41 @@ const fetchManufacturersFromSupabase = async (): Promise<Manufacturer[]> => {
       return [];
     }
 
-    // Filter for active manufacturers (but be more flexible)
-    const activeManufacturers = manufacturersData
-      .filter(
-        (m) => m.status === "active" || m.status === "approved" || !m.status,
-      )
-      .filter(
-        (m) =>
-          !m.is_test_entry ||
-          m.is_test_entry === false ||
-          m.is_test_entry === null,
-      );
+    // Filter out rejected manufacturers and test entries
+    const activeManufacturers = manufacturersData.filter((m) => {
+      // Exclude rejected manufacturers
+      if (m.status === "rejected") {
+        return false;
+      }
+      // Exclude test entries
+      if (m.is_test_entry === true) {
+        return false;
+      }
+      return true;
+    });
 
     console.log(
-      "🔍 Active manufacturers after filtering:",
+      "🔍 Manufacturers after filtering out rejected and test entries:",
       activeManufacturers.length,
+    );
+    console.log(
+      "🔍 Status breakdown:",
+      manufacturersData.reduce(
+        (acc, m) => {
+          const status = m.status || "null";
+          acc[status] = (acc[status] || 0) + 1;
+          return acc;
+        },
+        {} as Record<string, number>,
+      ),
     );
 
     if (activeManufacturers.length === 0) {
-      console.log("No active manufacturers found after filtering");
-      // Return all manufacturers if no active ones found
-      console.log("🔍 Returning all manufacturers instead");
+      console.log(
+        "❌ No manufacturers found after filtering - this might indicate all manufacturers are rejected or test entries",
+      );
+      // Return all manufacturers if no non-rejected ones found (fallback)
+      console.log("🔍 Returning all manufacturers as fallback");
     }
 
     const manufacturersToUse =
@@ -200,6 +216,7 @@ const fetchManufacturersFromSupabase = async (): Promise<Manufacturer[]> => {
         const manufacturerProducts =
           productsByManufacturer[manufacturer.id] || [];
 
+        // Always include manufacturers, even if they don't have products
         // If no products, create a default product for display
         const productsToShow =
           manufacturerProducts.length > 0
@@ -208,8 +225,9 @@ const fetchManufacturersFromSupabase = async (): Promise<Manufacturer[]> => {
                 {
                   id: `default-${manufacturer.id}`,
                   name: "Standard Bricks",
-                  description: "Quality brick products available",
-                  price: 5,
+                  description:
+                    "Quality brick products available - Contact for details",
+                  price: 0, // Set to 0 for manufacturers without specific products
                   imageUrl:
                     "https://images.unsplash.com/photo-1590086782957-93c06ef21604?w=500&q=80",
                 },
@@ -233,14 +251,27 @@ const fetchManufacturersFromSupabase = async (): Promise<Manufacturer[]> => {
             city: manufacturer.city || "Unknown",
             state: manufacturer.state || "Unknown",
           },
+          is_featured: manufacturer.is_featured || false,
         };
       },
     );
 
     console.log("🔍 Final manufacturers to return:", manufacturers.length);
+    console.log(
+      "🔍 Manufacturers with actual products:",
+      manufacturers.filter((m) =>
+        m.products.some((p) => !p.id.startsWith("default-")),
+      ).length,
+    );
+    console.log(
+      "🔍 Manufacturers with default products only:",
+      manufacturers.filter((m) =>
+        m.products.every((p) => p.id.startsWith("default-")),
+      ).length,
+    );
     console.log("🔍 Sample final manufacturer:", manufacturers[0]);
 
-    // Return all manufacturers (don't filter out those without products anymore)
+    // Return all manufacturers (including those without available products)
     return manufacturers;
   } catch (error) {
     console.error("Error in fetchManufacturersFromSupabase:", error);
@@ -408,10 +439,15 @@ export const findNearbyManufacturers = async (
       },
     );
 
-    // Sort by distance (closest first) and optionally filter by radius
-    const sortedManufacturers = manufacturersWithDistance.sort(
-      (a, b) => a.distance! - b.distance!,
-    );
+    // Sort by featured status first, then by distance (closest first)
+    const sortedManufacturers = manufacturersWithDistance.sort((a, b) => {
+      // Featured manufacturers come first
+      if (a.is_featured && !b.is_featured) return -1;
+      if (!a.is_featured && b.is_featured) return 1;
+
+      // If both have same featured status, sort by distance
+      return a.distance! - b.distance!;
+    });
 
     // Optionally filter by reasonable radius (e.g., within 500km for initial results)
     const nearbyManufacturers = sortedManufacturers.filter(

@@ -83,7 +83,7 @@ const Header: React.FC<HeaderProps> = ({
             onClick={() => navigate("/blog")}
             className="text-redFiredMustard-600 hover:text-redFiredMustard-700 transition-colors font-bold"
           >
-            {getLocalizedText("header.blog", content?.navBlog)}
+            Blogs & Resources
           </button>
           <button
             onClick={() => navigate("/reach-us")}
